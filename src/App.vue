@@ -1,33 +1,53 @@
 <template>
   <div>
-    <input type="text" ref="ipt">
-    <my-component ref="child"></my-component>
+    <div class="left">
+        <button @click="currentView = 'Channel1'">Channel 1</button>
+        <button @click="currentView = 'Channel2'">Channel 2</button>
+        <button @click="currentView = 'Channel3'">Channel 3</button>
+    </div>
+
+    <div class="right">
+      <transition name="fade">
+        <keep-alive>
+          <component :is="currentView"></component>
+        </keep-alive>
+      </transition>
+      <!-- <Channel1></Channel1> -->
+    </div>
   </div>
+
 </template>
 
 <script>
-import myComponent from './components/MyComponent'
+import Channel1 from './components/Channel1'
+import Channel2 from './components/Channel2'
+import Channel3 from './components/Channel3'
 export default {
   name: 'App',
   components: {
-    myComponent
+    Channel1,
+    Channel2,
+    Channel3
   },
   data () {
     return {
-      msg: 'Hi, Vue.js!'
+      currentView: 'Channel1'
     }
   },
   mounted () {
-    console.log(this.$refs.ipt)
-    this.msg = '123'
-    this.$refs.ipt.value = this.msg
-    console.log(this.$refs.child)
-    // var iptDom = document.getElementById('id')
-    // setTimeout(() => {
-    //   this.$refs.ipt.value = this.msg
-    // }, 3000)
 
-    // console.log(this.ref.)
   }
 }
 </script>
+<style lang="scss">
+.fade-enter{
+  opacity: 0;
+}
+.fade-enter-active{
+  transition: all 2s
+}
+.fade-leave{
+
+}
+
+</style>
