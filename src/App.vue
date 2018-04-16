@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <computer>
-      <div slot="CPU" class="cpu"><b>Intel Core i7</b></div>
-      <div slot="GPU"><i>GTX980Ti</i></div>
-      <div slot="Memory"><strong>Kingston 32G</strong></div>
-      <div slot="Hard-drive">(SSD)：Samsung SSD 1T</div>
+      <!-- <template slot-scope="props"> -->
+        <!-- {{ props }} -->
+        <ul slot-scope="props">
+          <li v-for="item in props.data" :key="item">{{item}}</li>
+        </ul>
+      <!-- </template> -->
     </computer>
   </div>
 </template>

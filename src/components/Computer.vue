@@ -1,14 +1,16 @@
 <template>
   <div>
-    <h2>我的电脑配置</h2>
-    <slot name="CPU">这儿插你的CPU</slot>
-    <slot name="GPU">这儿插你的显卡</slot>
-    <slot name="Memory">这儿插你的内存</slot>
-    <slot name="Hard-drive">这儿插你的硬盘</slot>
+    <h3>这里是子组件</h3>
+    <slot :data="data" test="123"></slot>
   </div>
 </template>
 <script>
 export default{
   // name: 'Son'
+  data () {
+    return {
+      data: ['zhangsan', 'lisi', 'wanwu', 'zhaoliu', 'tianqi', 'xiaoba']
+    }
+  }
 }
 </script>
