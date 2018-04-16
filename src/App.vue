@@ -1,18 +1,20 @@
 <template>
   <div class="container">
-    <son class="classson">
-      父组件上子组件包含的内容
-    </son>
-    <button>按钮</button>
+    <computer>
+      <div slot="CPU" class="cpu"><b>Intel Core i7</b></div>
+      <div slot="GPU"><i>GTX980Ti</i></div>
+      <div slot="Memory"><strong>Kingston 32G</strong></div>
+      <div slot="Hard-drive">(SSD)：Samsung SSD 1T</div>
+    </computer>
   </div>
 </template>
 
 <script>
-import Son from './components/Son'
+import Computer from './components/Computer'
 export default {
   name: 'App',
   components: {
-    Son
+    Computer
   }
 }
 </script>
