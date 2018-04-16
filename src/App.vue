@@ -1,53 +1,57 @@
 <template>
-  <div>
-    <div class="left">
-        <button @click="currentView = 'Channel1'">Channel 1</button>
-        <button @click="currentView = 'Channel2'">Channel 2</button>
-        <button @click="currentView = 'Channel3'">Channel 3</button>
-    </div>
-
-    <div class="right">
-      <transition name="fade">
-        <keep-alive>
-          <component :is="currentView"></component>
-        </keep-alive>
-      </transition>
-      <!-- <Channel1></Channel1> -->
-    </div>
+  <div id="list-demo" class="demo">
+    <button v-on:click="add">Add</button>
+    <button v-on:click="remove">Remove</button>
+    <transition-group name="list" tag="p">
+      <span v-for="item in items" v-bind:key="item" class="list-item">
+        {{ item }}
+      </span>
+    </transition-group>
   </div>
 
 </template>
 
 <script>
-import Channel1 from './components/Channel1'
-import Channel2 from './components/Channel2'
-import Channel3 from './components/Channel3'
 export default {
   name: 'App',
-  components: {
-    Channel1,
-    Channel2,
-    Channel3
-  },
-  data () {
+  data: function () {
     return {
-      currentView: 'Channel1'
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      nextNum: 10
     }
   },
-  mounted () {
-
+  methods: {
+    randomIndex: function () {
+      return Math.floor(Math.random() * this.items.length)
+    },
+    add: function () {
+      this.items.splice(this.randomIndex(), 0, this.nextNum++)
+    },
+    remove: function () {
+      this.items.splice(this.randomIndex(), 1)
+    }
   }
 }
 </script>
 <style lang="scss">
-.fade-enter{
-  opacity: 0;
-}
-.fade-enter-active{
-  transition: all 2s
-}
-.fade-leave{
+.list-item {
 
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-move{
+  transition: all 10s;
+}
+.list-leave-active{
+  position: absolute
 }
 
 </style>
