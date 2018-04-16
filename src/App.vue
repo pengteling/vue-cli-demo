@@ -1,32 +1,34 @@
 <template>
   <div class="container">
-    <span>{{ msg }}</span>
-    <button @click="updateMsg">update</button>
+    <Computer
+      v-model="msg"
+    ></Computer>
+    <!-- :value="msg"
+      @input="changeMsg" -->
+    <input type="text"
+     v-model="iptVal"
+    >
+    <!-- :value="iptVal"
+     @change="iptVal = $event.target.value" -->
   </div>
 </template>
 
 <script>
+import Computer from './components/Computer'
 export default {
   name: 'App',
+  components: {Computer},
   data () {
     return {
-      msg: 'not updated'
+      msg: 'not updated',
+      iptVal: ''
     }
-  },
-  methods: {
-    updateMsg () {
-      this.msg = 'updated'
-      this.$nextTick(() => {
-        console.log(this.$el.textContent + ' nextTick')
-      })
-      console.log(this.$el.textContent + ' click')
-    }
-  },
-  beforeUpdate () {
-    console.log(this.$el.textContent + ' beforeUpdate')
-  },
-  updated () {
-    console.log(this.$el.textContent + ' updated')
   }
+  // methods: {
+  //   changeMsg (msg) {
+  //     this.msg = msg
+  //   }
+  // }
+
 }
 </script>
