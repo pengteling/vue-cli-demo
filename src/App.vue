@@ -1,22 +1,32 @@
 <template>
   <div class="container">
-    <computer>
-      <!-- <template slot-scope="props"> -->
-        <!-- {{ props }} -->
-        <ul slot-scope="props">
-          <li v-for="item in props.data" :key="item">{{item}}</li>
-        </ul>
-      <!-- </template> -->
-    </computer>
+    <span>{{ msg }}</span>
+    <button @click="updateMsg">update</button>
   </div>
 </template>
 
 <script>
-import Computer from './components/Computer'
 export default {
   name: 'App',
-  components: {
-    Computer
+  data () {
+    return {
+      msg: 'not updated'
+    }
+  },
+  methods: {
+    updateMsg () {
+      this.msg = 'updated'
+      this.$nextTick(() => {
+        console.log(this.$el.textContent + ' nextTick')
+      })
+      console.log(this.$el.textContent + ' click')
+    }
+  },
+  beforeUpdate () {
+    console.log(this.$el.textContent + ' beforeUpdate')
+  },
+  updated () {
+    console.log(this.$el.textContent + ' updated')
   }
 }
 </script>
