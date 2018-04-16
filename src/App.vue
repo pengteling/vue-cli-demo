@@ -1,57 +1,64 @@
 <template>
-  <div id="list-demo" class="demo">
-    <button v-on:click="add">Add</button>
-    <button v-on:click="remove">Remove</button>
-    <transition-group name="list" tag="p">
-      <span v-for="item in items" v-bind:key="item" class="list-item">
-        {{ item }}
-      </span>
+  <div class="container">
+    <transition-group tag="div" name="fadeIn">
+      <div class="slide" v-for="(item,index) in banners" :key="index" v-show="index === curpage">
+        <a :href="item.sourceUrl">
+          <img :src="item.imgUrl" alt="">
+        </a>
+      </div>
     </transition-group>
   </div>
-
 </template>
 
 <script>
 export default {
   name: 'App',
-  data: function () {
+  // props:[],
+  data () {
     return {
-      items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      nextNum: 10
+      curpage: 0,
+      banners: [
+        {
+          sourceUrl: 'https://i1.mifile.cn/a4/xmad_15234553192824_sTkYv.jpg',
+          imgUrl: 'https://i1.mifile.cn/a4/xmad_15234553192824_sTkYv.jpg'
+        },
+        {
+          sourceUrl: 'https://i1.mifile.cn/a4/xmad_1523852977495_RedjU.jpg',
+          imgUrl: 'https://i1.mifile.cn/a4/xmad_1523852977495_RedjU.jpg'
+        }
+      ]
     }
   },
-  methods: {
-    randomIndex: function () {
-      return Math.floor(Math.random() * this.items.length)
-    },
-    add: function () {
-      this.items.splice(this.randomIndex(), 0, this.nextNum++)
-    },
-    remove: function () {
-      this.items.splice(this.randomIndex(), 1)
-    }
+  mounted () {
+    setInterval(() => {
+      this.curpage++
+      if (this.curpage >= this.banners.length) {
+        this.curpage = 0
+      }
+    }, 3000)
   }
+
 }
 </script>
 <style lang="scss">
-.list-item {
-
-  display: inline-block;
-  margin-right: 10px;
+.slide{
+  position: absolute;
+  width: 800px;
+  height: 200px;
+  img{
+    max-width: 800px;
+  }
 }
-.list-enter-active, .list-leave-active {
+.fadeIn-enter-active, .fadeIn-leave-active{
   transition: all 1s;
 }
-.list-enter, .list-leave-to
-/* .list-leave-active for below version 2.1.8 */ {
+.fadeIn-enter,.fadeIn-leave-to{
   opacity: 0;
-  transform: translateY(30px);
 }
-.list-move{
-  transition: all 10s;
+.fadeIn-enter{
+  transform: translate3d(100%,0,0)
 }
-.list-leave-active{
-  position: absolute
+.fadeIn-leave-to{
+  transform: translate3d(-100%,0,0)
 }
-
 </style>
