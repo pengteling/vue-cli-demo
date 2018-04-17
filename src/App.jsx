@@ -1,28 +1,28 @@
 
-
 const ChildComponent = {
   functional: true,
   props: {
     name: String,
-    age: Number,
+    age: Number
   },
-  render(h, { props }) {
+  render (h, { props }) {
+    console.log(props)
     return (
       <div class="child-jsx">
         <h3>{props.name} - {props.age}</h3>
       </div>
-    );
-  },
-};
+    )
+  }
+}
 
 export default {
   data: () => ({
     list: [
       { name: 'milkmidi', age: 18 },
-      { name: '奶綠茶', age: 17 },
-    ],
+      { name: '奶綠茶', age: 17 }
+    ]
   }),
-  render() {
+  render () {
     return (
       <section>
         {
@@ -30,13 +30,12 @@ export default {
             <ChildComponent
               key={o.name}
               {...{ props: o }} />)
-            // React 版
-            // <ChildComponent
-            //  key={o.name}
-            //  {...o} />)
+          // React 版
+          // <ChildComponent
+          //  key={o.name}
+          //  {...o} />)
         }
       </section>
-    );
-  },
-};
-
+    )
+  }
+}

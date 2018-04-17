@@ -1,5 +1,5 @@
 <script>
-import ChildComponent from './components/ChildComponent.vue'
+import ChildComponent from './components/ChildComponent.jsx'
 
 export default {
   data: () => ({

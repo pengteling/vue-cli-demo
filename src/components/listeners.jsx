@@ -1,16 +1,16 @@
 export default {
   methods: {
-    clickHandler() {
-      console.log('hi');
-    },
+    clickHandler () {
+      console.log('hi')
+    }
   },
-  render() {
+  render () {
     return (
       <section>
         <button
           class="btn btn-primary"
           onClick={this.clickHandler}>Click</button>
       </section>
-    );
-  },
-};
+    )
+  }
+}
