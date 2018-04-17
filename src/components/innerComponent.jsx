@@ -10,10 +10,11 @@
 //   }
 // }
 
-const ChildComponent = ({ props }) => {
+const ChildComponent = ({ props, listeners }) => {
+  console.log(listeners)
   return (
     <div class="child-jsx">
-      <h2>hi {props.name}</h2>
+      <h2 onClick={ listeners.testEvent}>hi {props.name}</h2>
     </div>
   )
 }
@@ -25,8 +26,13 @@ export default{
   render () {
     return (
       <div>
-        <ChildComponent name="test" />
+        <ChildComponent name="test" onTestEvent={this.clickHandler}/>
       </div>
     )
+  },
+  methods: {
+    clickHandler () {
+      console.log('click')
+    }
   }
 }
