@@ -1,22 +1,33 @@
 <template>
-  <div class="container">
-    <computer>
-      <!-- <template slot-scope="props"> -->
-        <!-- {{ props }} -->
-        <ul slot-scope="props">
-          <li v-for="item in props.data" :key="item">{{item}}</li>
-        </ul>
-      <!-- </template> -->
-    </computer>
-  </div>
+ <div id="app">
+ <child1
+  class="red"
+  :p-child1="child1"
+  :p-child2="child2"
+  :p-child3="child3"
+  v-on:test1="onTest1"
+  v-on:test2="onTest2">
+ </child1>
+ </div>
 </template>
-
 <script>
-import Computer from './components/Computer'
+import Child1 from './components/Child1.vue'
 export default {
-  name: 'App',
-  components: {
-    Computer
+  data () {
+    return {
+      child1: 'child1',
+      child2: 'child2',
+      child3: 'child3'
+    }
+  },
+  components: { Child1 },
+  methods: {
+    onTest1 () {
+      console.log('test1 running...')
+    },
+    onTest2 () {
+      console.log('test2 running')
+    }
   }
 }
 </script>
