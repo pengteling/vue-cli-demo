@@ -7,6 +7,10 @@
         </a>
       </div>
     </transition-group>
+    <div class="btns">
+      <button @click="prev">上一张</button>
+      <button @click="next">下一张</button>
+    </div>
   </div>
 </template>
 
@@ -25,40 +29,71 @@ export default {
         {
           sourceUrl: 'https://i1.mifile.cn/a4/xmad_1523852977495_RedjU.jpg',
           imgUrl: 'https://i1.mifile.cn/a4/xmad_1523852977495_RedjU.jpg'
+        },
+        {
+          sourceUrl: 'https://i1.mifile.cn/a4/xmad_15239326176265_HDrpS.jpg',
+          imgUrl: 'https://i1.mifile.cn/a4/xmad_15239326176265_HDrpS.jpg'
         }
-      ]
+      ],
+      timer: null
     }
   },
   mounted () {
-    setInterval(() => {
+    this.auto()
+  },
+  methods: {
+    auto () {
+      this.timer = setInterval(() => {
+        this.curpage++
+        if (this.curpage >= this.banners.length) {
+          this.curpage = 0
+        }
+      }, 3000)
+    },
+    prev () {
+      clearInterval(this.timer)
+      this.curpage--
+      if (this.curpage < 0) {
+        this.curpage = this.banners.length - 1
+      }
+      this.auto()
+    },
+    next () {
+      clearInterval(this.timer)
       this.curpage++
       if (this.curpage >= this.banners.length) {
         this.curpage = 0
       }
-    }, 3000)
+      this.auto()
+    }
   }
 
 }
 </script>
 <style lang="scss">
-.slide{
+.btns {
+  padding-top: 400px;
+}
+.slide {
   position: absolute;
   width: 800px;
   height: 200px;
-  img{
+  img {
     max-width: 800px;
   }
 }
-.fadeIn-enter-active, .fadeIn-leave-active{
+.fadeIn-enter-active,
+.fadeIn-leave-active {
   transition: all 1s;
 }
-.fadeIn-enter,.fadeIn-leave-to{
+.fadeIn-enter,
+.fadeIn-leave-to {
   opacity: 0;
 }
-.fadeIn-enter{
-  transform: translate3d(100%,0,0)
+.fadeIn-enter {
+  transform: translate3d(100%, 0, 0);
 }
-.fadeIn-leave-to{
-  transform: translate3d(-100%,0,0)
+.fadeIn-leave-to {
+  transform: translate3d(-100%, 0, 0);
 }
 </style>
