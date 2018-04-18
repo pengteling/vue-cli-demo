@@ -1,16 +1,16 @@
 
 const ChildComponent = {
-  // functional: true,
+  functional: true,
   props: {
     name: String,
     age: Number
   },
-  render (h, context) {
-    console.log(context)
+  render (h, {props}) {
+    console.log(props)
     // console.log(context)
     return (
       <div class="child-jsx">
-        <h3>{this.name} - {this.age}</h3>
+        <h3>{props.name} - {props.age}</h3>
       </div>
     )
   }
@@ -37,7 +37,7 @@ export default {
               key={o.name}
               onChange={this.handler}
               {...{ props: o }}
-            ><span>123</span><b slot="123"></b>
+            >
             </ChildComponent>
           )
           // React 版
