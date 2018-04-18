@@ -1,14 +1,14 @@
 export default{
-  name:'Hi',
+  name: 'Hi',
   // template:`<div>test</div>`
-  data(){
+  data () {
     return {
-      msg:'hi,jsx!'
+      msg: 'hi,jsx!'
     }
   },
 
-  render() {
-    return(
+  render () {
+    return (
       <div id="milkmidi">
         { this.msg }
       </div>
