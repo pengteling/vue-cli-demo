@@ -16,6 +16,7 @@
 </template>
 <script>
 import {mapState, mapGetters, mapMutations} from 'vuex'
+// import { createNamespacedHelpers } from 'vuex'
 export default {
   name: 'TabsComponent',
   data () {
@@ -31,7 +32,8 @@ export default {
     ])
   },
   methods: {
-    ...mapMutations(['toggleFilter', 'clearComplete'])
+    // ...mapMutations(['toggleFilter', 'clearComplete'])
+    ...mapMutations('tabs', ['toggleFilter'])
     // toggleFilter (state) {
     //   // this.$emit('toggle-tab-filter', state)
     // },
