@@ -3,13 +3,18 @@
     <input
       type="checkbox"
       class="toggle"
-      v-model="todo.isCompleted"
+      :value="todo.isCompleted"
+      @change="updateTodo(todo)"
     >
+    <!--
+      v-model="todo.isCompleted"
+       -->
     <label>{{ todo.content}}</label>
-    <button @click="deleteTodo" class="destory">x</button>
+    <button @click="deleteTodo(todo)" class="destory">x</button>
   </div>
 </template>
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: 'Item',
   props: {
@@ -19,9 +24,12 @@ export default {
     }
   },
   methods: {
-    deleteTodo () {
-      this.$emit('deleteTodo', this.todo)
-    }
+    ...mapMutations(['deleteTodo', 'updateTodo'])
+    // deleteTodo () {
+    //   // this.$store.commit('deleteTodo',this.todo)
+    //   //this.$emit('deleteTodo', this.todo)
+
+    // }
   }
 }
 </script>

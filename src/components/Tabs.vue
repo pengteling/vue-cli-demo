@@ -15,33 +15,31 @@
     </div>
 </template>
 <script>
+import {mapState, mapGetters, mapMutations} from 'vuex'
 export default {
   name: 'TabsComponent',
-  props: {
-    // "left-items-count":{
-    leftItemsCount: {
-      type: Number
-    },
-    filter: {
-      type: String
-    },
-    isHaveCompleted: {
-      type: Boolean
-    }
-  },
   data () {
     return {
       states: ['All', 'Active', 'Completed']
     }
   },
+  computed: {
+    ...mapState(['filter']),
+    ...mapGetters([
+      'isHaveCompleted',
+      'leftItemsCount'
+    ])
+  },
   methods: {
-    toggleFilter (state) {
-      this.$emit('toggle-tab-filter', state)
-    },
-    clearComplete () {
-      this.$emit('clear-completed')
-    }
+    ...mapMutations(['toggleFilter', 'clearComplete'])
+    // toggleFilter (state) {
+    //   // this.$emit('toggle-tab-filter', state)
+    // },
+    // clearComplete () {
+    //   // this.$emit('clear-completed')
+    // }
   }
+
 }
 </script>
 <style lang="scss" scoped>

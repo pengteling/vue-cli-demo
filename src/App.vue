@@ -10,15 +10,8 @@
           v-for="todo in todosView"
           :key="todo.content"
           :todo="todo"
-          @deleteTodo="deleteTodo"
         />
-        <tabs
-          :left-items-count="leftItemsCount"
-          :filter="filter"
-          :is-have-completed="isHaveCompleted"
-          @toggle-tab-filter="toggleTabFilter"
-          @clear-completed="clearCompleted"
-        />
+        <tabs />
       </section>
     </div>
     <footer id="footer">
@@ -28,6 +21,7 @@
 </template>
 
 <script>
+import {mapState, mapMutations, mapGetters} from 'vuex'
 /* eslint no-unused-vars : off */
 import TabsComponent from './components/Item'
 import Tabs from './components/Tabs'
@@ -39,44 +33,38 @@ export default {
   },
   data: function () {
     return {
-      todos: [
-        // {
-        //   content:'吃饭',
-        //   isCompleted:false
-        // },
-        // {
-        //   content:'睡觉',
-        //   isCompleted:false
-        // }
-      ],
-      filter: 'All'
+
     }
   },
 
   computed: {
-    isHaveTodo () {
-      return this.todos.length > 0
-    },
-    leftItemsCount () {
-      return this.todos.filter((v) => v.isCompleted === false).length
-    },
-    todosView () {
-      if (this.filter === 'All') {
-        return this.todos
-      } else if (this.filter === 'Active') {
-        return this.todos.filter(v => v.isCompleted === false)
-      } else {
-        return this.todos.filter(v => v.isCompleted === true)
-      }
-    },
-    isHaveCompleted () {
-      return this.todos.filter(v => v.isCompleted === true).length > 0
-    }
+    ...mapState(['todos', 'filter']),
+    ...mapGetters(['todosView'])
+    // isHaveTodo () {
+    //   return this.todos.length > 0
+    // },
+    // leftItemsCount () {
+    //   return this.todos.filter((v) => v.isCompleted === false).length
+    // },
+    // todosView () {
+    //   if (this.filter === 'All') {
+    //     return this.todos
+    //   } else if (this.filter === 'Active') {
+    //     return this.todos.filter(v => v.isCompleted === false)
+    //   } else {
+    //     return this.todos.filter(v => v.isCompleted === true)
+    //   }
+    // },
+    // isHaveCompleted () {
+    //   return this.todos.filter(v => v.isCompleted === true).length > 0
+    // }
   },
   beforeMount () {
     if (localStorage.getItem('filter')) {
-      this.todos = JSON.parse(localStorage.getItem('todos'))
-      this.filter = localStorage.getItem('filter')
+      this.initState({
+        todos: JSON.parse(localStorage.getItem('todos')),
+        filter: localStorage.getItem('filter')
+      })
     }
   },
 
@@ -85,28 +73,31 @@ export default {
     localStorage.setItem('todos', JSON.stringify(this.todos))
   },
   methods: {
+    ...mapMutations({
+      addTodoStore: 'addTodo',
+      initState: 'initState'
+    }),
     addTodo (e) {
       // console.log(e.target.value)
       let content = e.target.value
       if (content) {
-        this.todos.unshift({
-          // id:Symbol(),
+        this.addTodoStore({
           content: content,
           isCompleted: false
         })
       }
       e.target.value = ''
-    },
-    deleteTodo (todo) {
-      // this.todos.splice(this.todos.findIndex(item=> todo === item),1)
-      this.todos = this.todos.filter(v => v !== todo)
-    },
-    toggleTabFilter (state) {
-      this.filter = state
-    },
-    clearCompleted () {
-      this.todos = this.todos.filter(v => v.isCompleted === false)
     }
+    // deleteTodo (todo) {
+    //   // this.todos.splice(this.todos.findIndex(item=> todo === item),1)
+    //   this.todos = this.todos.filter(v => v !== todo)
+    // },
+    // toggleTabFilter (state) {
+    //   this.filter = state
+    // },
+    // clearCompleted () {
+    //   this.todos = this.todos.filter(v => v.isCompleted === false)
+    // }
   }
 
 }
